@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.geometry.Rectangle2D?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="527.0" prefWidth="333.0" style="-fx-background-radius: 20; -fx-background-color: f2e2b2; -fx-border-radius: 20;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.luismanuel.cardtoonfx.controllers.FichaController">
+   <children>
+      <Pane layoutX="14.0" layoutY="11.0" prefHeight="500.0" prefWidth="307.0" style="-fx-background-radius: 20; -fx-background-color: f23202;">
+         <children>
+            <ImageView fitHeight="238.0" fitWidth="207.0" layoutX="52.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@imagenes/fondobonito.png" />
+               </image>
+            </ImageView>
+            <VBox alignment="CENTER" layoutY="261.0" prefHeight="238.0" prefWidth="307.0" spacing="30.0">
+               <children>
+                  <Pane prefHeight="43.0" prefWidth="174.0" style="-fx-background-radius: 10; -fx-background-color: #fff;">
+                     <children>
+                        <Label fx:id="vida" alignment="CENTER" prefHeight="43.0" prefWidth="227.0" text="32">
+                           <font>
+                              <Font name="Consolas Bold" size="24.0" />
+                           </font>
+                        </Label>
+                        <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="14.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@imagenes/heart.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                     <VBox.margin>
+                        <Insets left="40.0" right="40.0" />
+                     </VBox.margin>
+                  </Pane>
+                  <Pane prefHeight="42.0" prefWidth="243.0" style="-fx-background-radius: 10; -fx-background-color: #fff;">
+                     <children>
+                        <Label fx:id="victorias" alignment="CENTER" prefHeight="43.0" prefWidth="227.0" text="0">
+                           <font>
+                              <Font name="Consolas Bold" size="24.0" />
+                           </font>
+                        </Label>
+                        <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="14.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@imagenes/trofeo.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                     <VBox.margin>
+                        <Insets left="40.0" right="40.0" />
+                     </VBox.margin>
+                  </Pane>
+                  <Pane prefHeight="43.0" prefWidth="174.0" style="-fx-background-radius: 10; -fx-background-color: #fff;">
+                     <children>
+                        <Label fx:id="precio" alignment="CENTER" prefHeight="43.0" prefWidth="227.0" text="2000">
+                           <font>
+                              <Font name="Consolas Bold" size="24.0" />
+                           </font>
+                        </Label>
+                        <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="14.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@imagenes/coins.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                     <VBox.margin>
+                        <Insets left="40.0" right="40.0" />
+                     </VBox.margin>
+                  </Pane>
+               </children>
+            </VBox>
+            <ImageView fx:id="imagen" fitHeight="143.0" fitWidth="88.0" layoutX="110.0" layoutY="68.0" pickOnBounds="true">
+               <image>
+                  <Image url="@imagenes/img10.png" />
+               </image>
+               <viewport>
+                  <Rectangle2D />
+               </viewport>
+            </ImageView>
+            <Pane layoutX="14.0" layoutY="14.0" prefHeight="60.0" prefWidth="60.0" style="-fx-background-radius: 200; -fx-background-color: f2e2b2;">
+               <children>
+                  <Label fx:id="nivel" alignment="CENTER" layoutX="-5.0" layoutY="-4.0" prefHeight="68.0" prefWidth="70.0" text="2">
+                     <font>
+                        <Font name="Consolas Bold" size="24.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+            <Pane layoutX="213.0" layoutY="14.0" prefHeight="60.0" prefWidth="60.0" style="-fx-background-radius: 200; -fx-background-color: f2e2b2;">
+               <children>
+                  <Label fx:id="zona" alignment="CENTER" layoutX="-2.0" layoutY="-4.0" prefHeight="68.0" prefWidth="64.0" text="IV">
+                     <font>
+                        <Font name="Consolas Bold" size="24.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+            <Pane layoutX="52.0" layoutY="215.0" prefHeight="43.0" prefWidth="204.0" style="-fx-background-color: fff;">
+               <children>
+                  <Label fx:id="nombre" alignment="CENTER" prefHeight="43.0" prefWidth="204.0" text="Label">
+                     <font>
+                        <Font name="Consolas Bold" size="20.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+         </children>
+      </Pane>
+   </children>
+</Pane>

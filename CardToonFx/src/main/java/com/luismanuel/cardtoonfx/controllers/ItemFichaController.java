@@ -1,27 +1,23 @@
-package com.luismanuel.cardtoonfx;
+package com.luismanuel.cardtoonfx.controllers;
 
-import com.luismanuel.cardtoonfx.interfaces.Item;
 import com.luismanuel.cardtoonfx.interfaces.OnItemSeleccionado;
+import com.luismanuel.cardtoonfx.modelos.Ficha;
 import com.luismanuel.cardtoonfx.modelos.Jugador;
 import javafx.fxml.FXML;
-import javafx.scene.SnapshotParameters;
-import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.image.WritableImage;
-import javafx.scene.shape.Rectangle;
 
 import java.io.InputStream;
 
-public class ItemJugadorController {
+public class ItemFichaController {
     @FXML
     private ImageView imagen;
 
-    public void cargarDatos(Jugador jugador, OnItemSeleccionado miListener) throws Exception {
+    public void cargarDatos(Ficha ficha, OnItemSeleccionado miListener) throws Exception {
 
         //Get the image from the resources folder
         // Obtenemos la ruta relativa de la imagen
-        String imagePath = "/com/luismanuel/cardtoonfx/imagenes/" + jugador.getPerfilIcon() + ".png";
+        String imagePath = "/com/luismanuel/cardtoonfx/imagenes/" + ficha.getImagen() + ".png";
 
         // Obtenemos el InputStream de la imagen
         InputStream inputStream = getClass().getResourceAsStream(imagePath);
@@ -34,7 +30,7 @@ public class ItemJugadorController {
 
         //Mouse click listener
         imagen.setOnMouseClicked(mouseEvent -> {
-            miListener.onJugadorSeleccionado(jugador);
+            miListener.onFichaSeleccionada(ficha);
         });
     }
 }

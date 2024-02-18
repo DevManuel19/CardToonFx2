@@ -1,5 +1,6 @@
 package com.luismanuel.cardtoonfx.api;
 
+import com.luismanuel.cardtoonfx.modelos.Ficha;
 import com.luismanuel.cardtoonfx.modelos.Jugador;
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -10,4 +11,6 @@ public interface ApiService {
 
     @GET("/jugadores/obtener/todos")
     Call<List<Jugador>> obtenerTodos();
+    @GET("/fichas/obtener/todas")
+    Call<List<Ficha>> obtenerFichas();
 }

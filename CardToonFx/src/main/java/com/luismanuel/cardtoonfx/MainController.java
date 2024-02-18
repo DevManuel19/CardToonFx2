@@ -2,7 +2,10 @@ package com.luismanuel.cardtoonfx;
 import com.jfoenix.controls.JFXButton;
 import com.luismanuel.cardtoonfx.api.ApiService;
 import com.luismanuel.cardtoonfx.api.ClientRest;
-import com.luismanuel.cardtoonfx.interfaces.Item;
+import com.luismanuel.cardtoonfx.controllers.FichaController;
+import com.luismanuel.cardtoonfx.controllers.ItemFichaController;
+import com.luismanuel.cardtoonfx.controllers.ItemJugadorController;
+import com.luismanuel.cardtoonfx.controllers.JugadorController;
 import com.luismanuel.cardtoonfx.interfaces.OnItemSeleccionado;
 import com.luismanuel.cardtoonfx.modelos.Ficha;
 import com.luismanuel.cardtoonfx.modelos.Jugador;
@@ -11,6 +14,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.*;
 import retrofit2.Call;
@@ -48,34 +52,13 @@ public class MainController implements Initializable, OnItemSeleccionado {
         //Set the home button listener. Home is the default view with all movies and books
         botonJugadores.setOnAction(mouseEvent -> {
             itemGrid.getChildren().clear();
-            //TODO: REVISAR PARA QUE NO DISTINGA ENTRE ITEM
-
-            apiService = ClientRest.getInstance("192.168.0.107","8089");
-
-            apiService.obtenerTodos().enqueue(new Callback<List<Jugador>>() {
-                @Override
-                public void onResponse(Call<List<Jugador>> call, Response<List<Jugador>> response) {
-                    if(response.isSuccessful()){
-                        List<Jugador> jugadores = response.body();
-                        Platform.runLater(() -> {
-                            establecerDatosJugadores((ArrayList<Jugador>) jugadores);
-                        });
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<List<Jugador>> call, Throwable throwable) {
-                    throwable.printStackTrace();
-                }
-            });
-
+            obtenerJugadores();
         });
 
         //Set the books button listener (OnAction instead of OnMouseClicked because it's a JFXButton)
         botonFichas.setOnAction(mouseEvent -> {
             itemGrid.getChildren().clear();
-            ArrayList<Ficha> fichas = ReceptorApi.obtnerFichas();
-            //establecerDatosFichas(fichas);
+            obtenerFichas();
         });
 
     }
@@ -120,17 +103,17 @@ public class MainController implements Initializable, OnItemSeleccionado {
             }
         }
     }
-    /*
-    public void establecerDatosFichas(ArrayList<Ficha> fichas){
+
+   public void establecerDatosFichas(ArrayList<Ficha> fichas){
         int row = 0;
         int col = 0;
         for (int i = 0; i < fichas.size(); i++) {
             try{
                 FXMLLoader fxmlLoader = new FXMLLoader();
-                URL url = getClass().getResource("item.fxml");
+                URL url = getClass().getResource("item2.fxml");
                 fxmlLoader.setLocation(url);
                 AnchorPane anchorPane = fxmlLoader.load();
-                ItemJugadorController itemController = fxmlLoader.getController();
+                ItemFichaController itemController = fxmlLoader.getController();
 
 
                 //Set the data to the item
@@ -156,21 +139,9 @@ public class MainController implements Initializable, OnItemSeleccionado {
                 GridPane.setMargin(anchorPane, new Insets(10));
             }catch (IOException ex){
                 ex.printStackTrace();
+            } catch (Exception e) {
+                throw new RuntimeException(e);
             }
-        }
-    }*/
-
-    public void establecerDatosIndividualesJugador(Jugador jugador){
-        try{
-            FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setLocation(getClass().getResource("jugador.fxml"));
-            VBox vBox = fxmlLoader.load();
-            JugadorController jugadorController = fxmlLoader.getController();
-            jugadorController.establecerDatos(jugador);
-            cardArea.getChildren().clear();
-            cardArea.getChildren().add(vBox);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
         }
     }
 
@@ -180,8 +151,85 @@ public class MainController implements Initializable, OnItemSeleccionado {
         establecerDatosIndividualesJugador(jugador);
     }
 
+    //OBTENER JUGADORES DE LA API
+    private void obtenerJugadores(){
+        apiService = ClientRest.getInstance("192.168.0.107","8090");
+
+        apiService.obtenerTodos().enqueue(new Callback<List<Jugador>>() {
+            @Override
+            public void onResponse(Call<List<Jugador>> call, Response<List<Jugador>> response) {
+                if(response.isSuccessful()){
+                    List<Jugador> jugadores = response.body();
+                    Platform.runLater(() -> {
+                        establecerDatosJugadores((ArrayList<Jugador>) jugadores);
+                    });
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Jugador>> call, Throwable throwable) {
+                throwable.printStackTrace();
+            }
+        });
+    }
+
+    //OBTENER FICHAS DE LA API
+    private void obtenerFichas() {
+        apiService = ClientRest.getInstance("192.168.0.107", "8090");
+        apiService.obtenerFichas().enqueue(new Callback<List<Ficha>>() {
+            @Override
+            public void onResponse(Call<List<Ficha>> call, Response<List<Ficha>> response) {
+                if (response.isSuccessful()) {
+                    List<Ficha> fichas = response.body();
+                    System.out.println(fichas.size());
+                    Platform.runLater(() -> {
+                        establecerDatosFichas((ArrayList<Ficha>) fichas);
+                    });
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Ficha>> call, Throwable throwable) {
+                throwable.printStackTrace();
+            }
+        });
+    }
+
+
+
+    //DATOS INDIVIDUALES DEL DETALLE DE UNA FICHA
+    public void establecerDatosIndividualesFicha(Ficha ficha){
+        try{
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(getClass().getResource("ficha.fxml"));
+            Pane pane = fxmlLoader.load();
+            FichaController fichaController = fxmlLoader.getController();
+            fichaController.establecerDatos(ficha);
+            cardArea.getChildren().clear();
+            cardArea.getChildren().add(pane);
+            StackPane.setAlignment(pane, Pos.CENTER);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    //DATOS INDIVIDUALES DEL DETALLE DE UN JUGADOR
+    public void establecerDatosIndividualesJugador(Jugador jugador){
+        try{
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(getClass().getResource("jugador2.fxml"));
+            Pane pane = fxmlLoader.load();
+            JugadorController jugadorController = fxmlLoader.getController();
+            jugadorController.establecerDatos(jugador);
+            cardArea.getChildren().clear();
+            cardArea.getChildren().add(pane);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    //LISTENER PARA EL DETALLE DE UNA FICHA
     @Override
     public void onFichaSeleccionada(Ficha ficha) {
-
+        establecerDatosIndividualesFicha(ficha);
     }
 }

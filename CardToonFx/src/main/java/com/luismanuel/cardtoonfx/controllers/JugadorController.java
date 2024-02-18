@@ -1,4 +1,4 @@
-package com.luismanuel.cardtoonfx;
+package com.luismanuel.cardtoonfx.controllers;
 
 import com.luismanuel.cardtoonfx.modelos.Jugador;
 import javafx.fxml.FXML;
