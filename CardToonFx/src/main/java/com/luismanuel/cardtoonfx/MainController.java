@@ -29,6 +29,10 @@ import java.util.ResourceBundle;
 
 public class MainController implements Initializable, OnItemSeleccionado {
     private ApiService apiService;
+    private boolean fichasSeleccionadas = false;
+    private boolean jugadoresSeleccionados = false;
+    private boolean zonasSeleccionadas = false;
+
     @FXML
     private JFXButton botonFichas;
 
@@ -49,20 +53,36 @@ public class MainController implements Initializable, OnItemSeleccionado {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        //Set the home button listener. Home is the default view with all movies and books
         botonJugadores.setOnAction(mouseEvent -> {
-            itemGrid.getChildren().clear();
-            obtenerJugadores();
+            if (!jugadoresSeleccionados) {
+                itemGrid.getChildren().clear();
+                obtenerJugadores();
+                jugadoresSeleccionados = true;
+                fichasSeleccionadas = false;
+                zonasSeleccionadas = false;
+            }
         });
 
-        //Set the books button listener (OnAction instead of OnMouseClicked because it's a JFXButton)
         botonFichas.setOnAction(mouseEvent -> {
-            itemGrid.getChildren().clear();
-            obtenerFichas();
+            if (!fichasSeleccionadas) {
+                itemGrid.getChildren().clear();
+                obtenerFichas();
+                fichasSeleccionadas = true;
+                jugadoresSeleccionados = false;
+                zonasSeleccionadas = false;
+            }
         });
 
+        botonZonas.setOnAction(mouseEvent -> {
+            if (!zonasSeleccionadas) {
+                itemGrid.getChildren().clear();
+                //obtenerZonas();
+                zonasSeleccionadas = true;
+                fichasSeleccionadas = false;
+                jugadoresSeleccionados = false;
+            }
+        });
     }
-
     public void establecerDatosJugadores(ArrayList<Jugador> jugadores){
         int row = 0;
         int col = 0;
@@ -104,7 +124,7 @@ public class MainController implements Initializable, OnItemSeleccionado {
         }
     }
 
-   public void establecerDatosFichas(ArrayList<Ficha> fichas){
+    public void establecerDatosFichas(ArrayList<Ficha> fichas){
         int row = 0;
         int col = 0;
         for (int i = 0; i < fichas.size(); i++) {
@@ -115,8 +135,6 @@ public class MainController implements Initializable, OnItemSeleccionado {
                 AnchorPane anchorPane = fxmlLoader.load();
                 ItemFichaController itemController = fxmlLoader.getController();
 
-
-                //Set the data to the item
                 itemController.cargarDatos(fichas.get(i),MainController.this);
 
                 //Divide the grid in 3 columns
