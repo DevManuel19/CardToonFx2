@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="465.0" prefWidth="310.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.luismanuel.cardtoonfx.JugadorController">
+   <children>
+      <ImageView fx:id="perfilIcon" fitHeight="290.0" fitWidth="225.0" pickOnBounds="true" preserveRatio="true">
+         <VBox.margin>
+            <Insets top="10.0" />
+         </VBox.margin>
+      </ImageView>
+      <HBox maxHeight="35.0" minHeight="35.0" prefHeight="35.0" prefWidth="310.0">
+         <children>
+            <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="140.0" text="Nombre" textFill="#949494">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="nombre" prefHeight="17.0" prefWidth="130.0" text="Label">
+               <HBox.margin>
+                  <Insets left="30.0" />
+               </HBox.margin>
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+         </children>
+         <VBox.margin>
+            <Insets top="20.0" />
+         </VBox.margin>
+      </HBox>
+      <HBox maxHeight="35.0" minHeight="35.0" prefHeight="35.0" prefWidth="310.0">
+         <children>
+            <Label alignment="CENTER_RIGHT" prefWidth="140.0" text="Dinero" textFill="#949494">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="dinero" prefHeight="17.0" prefWidth="130.0" text="Label">
+               <HBox.margin>
+                  <Insets left="30.0" />
+               </HBox.margin>
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
+      <HBox maxHeight="35.0" minHeight="35.0" prefHeight="35.0" prefWidth="310.0">
+         <children>
+            <Label alignment="CENTER_RIGHT" prefWidth="140.0" text="Partidas G." textFill="#949494">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="partidasGanadas" prefWidth="130.0" text="Label">
+               <HBox.margin>
+                  <Insets left="30.0" />
+               </HBox.margin>
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
+      <HBox maxHeight="35.0" minHeight="35.0" prefHeight="35.0" prefWidth="310.0" />
+      <Label fx:id="idJugador" alignment="CENTER" contentDisplay="CENTER" maxHeight="70.0" maxWidth="164.0" minHeight="70.0" minWidth="70.0" prefHeight="70.0" prefWidth="164.0" style="-fx-background-color: #252526; -fx-background-radius: 15;" text="ID" textFill="WHITE" translateY="-240.0">
+         <font>
+            <Font name="System Bold" size="40.0" />
+         </font>
+      </Label>
+   </children>
+</VBox>
