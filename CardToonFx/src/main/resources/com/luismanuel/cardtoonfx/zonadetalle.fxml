@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.geometry.Rectangle2D?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="527.0" prefWidth="333.0" style="-fx-background-radius: 20; -fx-background-color: #252526; -fx-border-radius: 20;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.luismanuel.cardtoonfx.controllers.ZonaController">
+   <children>
+      <Pane layoutX="14.0" layoutY="11.0" prefHeight="500.0" prefWidth="307.0" style="-fx-background-radius: 20; -fx-background-color: #FFF;">
+         <children>
+            <VBox alignment="CENTER" layoutY="288.0" prefHeight="211.0" prefWidth="307.0">
+               <children>
+                  <Pane prefHeight="191.0" prefWidth="311.0" style="-fx-background-radius: 10; -fx-background-color: #252526;">
+                     <VBox.margin>
+                        <Insets left="40.0" right="40.0" />
+                     </VBox.margin>
+                     <children>
+                        <TextArea fx:id="descripcion" editable="false" layoutX="14.0" layoutY="15.0" prefHeight="161.0" prefWidth="200.0" promptText="Descripcion de la zona" wrapText="true" />
+                     </children>
+                  </Pane>
+               </children>
+            </VBox>
+            <Pane layoutX="18.0" layoutY="16.0" prefHeight="234.0" prefWidth="270.0" style="-fx-background-radius: 20; -fx-background-color: #252526;">
+               <children>
+                  <Pane layoutX="10.0" layoutY="10.0" prefHeight="195.0" prefWidth="250.0" style="-fx-background-radius: 20; -fx-background-color: #ffc2a4;">
+                     <children>
+                        <ImageView fx:id="imagenZona" fitHeight="195.0" fitWidth="250.0" pickOnBounds="true">
+                           <image>
+                              <Image url="@imagenes/fondograss.png" />
+                           </image>
+                           <viewport>
+                              <Rectangle2D />
+                           </viewport>
+                        </ImageView>
+                     </children>
+                  </Pane>
+               </children>
+            </Pane>
+            <Pane layoutX="19.0" layoutY="221.0" prefHeight="59.0" prefWidth="270.0" style="-fx-background-color: #252526;">
+               <children>
+                  <Label fx:id="nombreZona" alignment="CENTER" layoutY="-2.0" prefHeight="59.0" prefWidth="270.0" text="Label" textFill="WHITE">
+                     <font>
+                        <Font name="Consolas Bold" size="24.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+         </children>
+      </Pane>
+   </children>
+</Pane>

@@ -2,6 +2,7 @@ package com.luismanuel.cardtoonfx.interfaces;
 
 import com.luismanuel.cardtoonfx.modelos.Ficha;
 import com.luismanuel.cardtoonfx.modelos.Jugador;
+import com.luismanuel.cardtoonfx.modelos.Zona;
 
 public interface OnItemSeleccionado {
     /**
@@ -12,4 +13,5 @@ public interface OnItemSeleccionado {
     void onJugadorSeleccionado(Jugador jugador);
 
     void onFichaSeleccionada(Ficha ficha);
+    void onZonaSeleccionada(Zona zona);
 }

@@ -2,13 +2,11 @@ package com.luismanuel.cardtoonfx;
 import com.jfoenix.controls.JFXButton;
 import com.luismanuel.cardtoonfx.api.ApiService;
 import com.luismanuel.cardtoonfx.api.ClientRest;
-import com.luismanuel.cardtoonfx.controllers.FichaController;
-import com.luismanuel.cardtoonfx.controllers.ItemFichaController;
-import com.luismanuel.cardtoonfx.controllers.ItemJugadorController;
-import com.luismanuel.cardtoonfx.controllers.JugadorController;
+import com.luismanuel.cardtoonfx.controllers.*;
 import com.luismanuel.cardtoonfx.interfaces.OnItemSeleccionado;
 import com.luismanuel.cardtoonfx.modelos.Ficha;
 import com.luismanuel.cardtoonfx.modelos.Jugador;
+import com.luismanuel.cardtoonfx.modelos.Zona;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -84,7 +82,7 @@ public class MainController implements Initializable, OnItemSeleccionado {
         botonZonas.setOnAction(mouseEvent -> {
             if (!zonasSeleccionadas) {
                 itemGrid.getChildren().clear();
-                //obtenerZonas();
+                obtenerZonas();
                 zonasSeleccionadas = true;
                 fichasSeleccionadas = false;
                 jugadoresSeleccionados = false;
@@ -178,6 +176,44 @@ public class MainController implements Initializable, OnItemSeleccionado {
         }
     }
 
+    public void establecerDatosZonas(ArrayList<Zona> zonas){
+        int row = 0;
+        int col = 0;
+        for (int i = 0; i < zonas.size(); i++) {
+            try{
+                FXMLLoader fxmlLoader = new FXMLLoader();
+                URL url = getClass().getResource("zona.fxml");
+                fxmlLoader.setLocation(url);
+                AnchorPane anchorPane = fxmlLoader.load();
+                ItemZonaController itemController = fxmlLoader.getController();
+
+                //Establecemos los datos en el item inidividual
+                itemController.cargarDatos(zonas.get(i),MainController.this);
+                if (col == 3){
+                    col = 0;
+                    row++;
+                }
+
+                //Añadimos el item en el grid y establecemos el tamaño
+                itemGrid.add(anchorPane, col++, row);
+                itemGrid.setMinWidth(Region.USE_COMPUTED_SIZE);
+                itemGrid.setPrefWidth(Region.USE_COMPUTED_SIZE);
+                itemGrid.setMaxWidth(Region.USE_PREF_SIZE);
+                itemGrid.setMinHeight(Region.USE_COMPUTED_SIZE);
+                itemGrid.setPrefHeight(Region.USE_COMPUTED_SIZE);
+                itemGrid.setMaxHeight(Region.USE_PREF_SIZE);
+                itemGrid.setVgap(10);
+
+                //Añadimos un margen al item
+                GridPane.setMargin(anchorPane, new Insets(10));
+            }catch (IOException ex){
+                ex.printStackTrace();
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
     /**
      * Listener para el detalle de un jugador
      * @param jugador Jugador seleccionado
@@ -230,6 +266,26 @@ public class MainController implements Initializable, OnItemSeleccionado {
         });
     }
 
+    private void obtenerZonas() {
+        // Obtenemos la instancia de la API con la dirección del servidor y el puerto
+        apiService.obtenerZonas().enqueue(new Callback<List<Zona>>() {
+            @Override
+            public void onResponse(Call<List<Zona>> call, Response<List<Zona>> response) {
+                if (response.isSuccessful()) {
+                    List<Zona> zonas = response.body();
+                    Platform.runLater(() -> {
+                        establecerDatosZonas((ArrayList<Zona>) zonas);
+                    });
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Zona>> call, Throwable throwable) {
+
+            }
+        });
+    }
+
 
 
     //DATOS INDIVIDUALES DEL DETALLE DE UNA FICHA
@@ -262,9 +318,29 @@ public class MainController implements Initializable, OnItemSeleccionado {
             throw new RuntimeException(e);
         }
     }
+
+
+    public void establecerDatosIndividualesZona(Zona zona){
+        try{
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(getClass().getResource("zonadetalle.fxml"));
+            Pane pane = fxmlLoader.load();
+            ZonaController zonaController = fxmlLoader.getController();
+            zonaController.establecerDatos(zona);
+            cardArea.getChildren().clear();
+            cardArea.getChildren().add(pane);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
     //LISTENER PARA EL DETALLE DE UNA FICHA
     @Override
     public void onFichaSeleccionada(Ficha ficha) {
         establecerDatosIndividualesFicha(ficha);
+    }
+
+    @Override
+    public void onZonaSeleccionada(Zona zona) {
+        establecerDatosIndividualesZona(zona);
     }
 }
