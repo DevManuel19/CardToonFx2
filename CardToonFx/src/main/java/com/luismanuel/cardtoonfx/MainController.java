@@ -28,11 +28,13 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class MainController implements Initializable, OnItemSeleccionado {
-    private ApiService apiService;
+    //VARIABLES
+    private ApiService apiService = ClientRest.getInstance("localhost","8090");
     private boolean fichasSeleccionadas = false;
     private boolean jugadoresSeleccionados = false;
     private boolean zonasSeleccionadas = false;
 
+    //COMPONENTES
     @FXML
     private JFXButton botonFichas;
 
@@ -51,8 +53,14 @@ public class MainController implements Initializable, OnItemSeleccionado {
     @FXML
     private ScrollPane scrollContainer;
 
+    /**
+     * Inicializa el controlador de la vista
+     * @param url URL
+     * @param resourceBundle ResourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        //BOTON PARA OBTENER JUGADORES
         botonJugadores.setOnAction(mouseEvent -> {
             if (!jugadoresSeleccionados) {
                 itemGrid.getChildren().clear();
@@ -62,7 +70,7 @@ public class MainController implements Initializable, OnItemSeleccionado {
                 zonasSeleccionadas = false;
             }
         });
-
+        //BOTON PARA OBTENER FICHAS
         botonFichas.setOnAction(mouseEvent -> {
             if (!fichasSeleccionadas) {
                 itemGrid.getChildren().clear();
@@ -72,7 +80,7 @@ public class MainController implements Initializable, OnItemSeleccionado {
                 zonasSeleccionadas = false;
             }
         });
-
+        //BOTON PARA OBTENER ZONAS
         botonZonas.setOnAction(mouseEvent -> {
             if (!zonasSeleccionadas) {
                 itemGrid.getChildren().clear();
@@ -83,6 +91,11 @@ public class MainController implements Initializable, OnItemSeleccionado {
             }
         });
     }
+
+    /**
+     * Establece los datos de los jugadores en la vista
+     * @param jugadores Lista de jugadores
+     */
     public void establecerDatosJugadores(ArrayList<Jugador> jugadores){
         int row = 0;
         int col = 0;
@@ -95,16 +108,15 @@ public class MainController implements Initializable, OnItemSeleccionado {
                 ItemJugadorController itemJugadorController = fxmlLoader.getController();
 
 
-                //Set the data to the item
+                //Establecemos los datos en el item inidividual
                 itemJugadorController.cargarDatos(jugadores.get(i), MainController.this);
 
-                //Divide the grid in 3 columns
                 if (col == 3){
                     col = 0;
                     row++;
                 }
 
-                //Add the item to the grid and set the size
+                //Añadimos el item en el grid y establecemos el tamaño
                 itemGrid.add(anchorPane, col++, row);
                 itemGrid.setMinWidth(Region.USE_COMPUTED_SIZE);
                 itemGrid.setPrefWidth(Region.USE_COMPUTED_SIZE);
@@ -114,7 +126,7 @@ public class MainController implements Initializable, OnItemSeleccionado {
                 itemGrid.setMaxHeight(Region.USE_PREF_SIZE);
                 itemGrid.setVgap(10);
 
-                //Add a margin to the item
+                //Añadimos un margen al item
                 GridPane.setMargin(anchorPane, new Insets(10));
             }catch (IOException ex){
                 ex.printStackTrace();
@@ -124,6 +136,10 @@ public class MainController implements Initializable, OnItemSeleccionado {
         }
     }
 
+    /**
+     * Establece los datos de las fichas en la vista
+     * @param fichas Lista de fichas
+     */
     public void establecerDatosFichas(ArrayList<Ficha> fichas){
         int row = 0;
         int col = 0;
@@ -135,15 +151,14 @@ public class MainController implements Initializable, OnItemSeleccionado {
                 AnchorPane anchorPane = fxmlLoader.load();
                 ItemFichaController itemController = fxmlLoader.getController();
 
+                //Establecemos los datos en el item inidividual
                 itemController.cargarDatos(fichas.get(i),MainController.this);
-
-                //Divide the grid in 3 columns
                 if (col == 3){
                     col = 0;
                     row++;
                 }
 
-                //Add the item to the grid and set the size
+                //Añadimos el item en el grid y establecemos el tamaño
                 itemGrid.add(anchorPane, col++, row);
                 itemGrid.setMinWidth(Region.USE_COMPUTED_SIZE);
                 itemGrid.setPrefWidth(Region.USE_COMPUTED_SIZE);
@@ -153,7 +168,7 @@ public class MainController implements Initializable, OnItemSeleccionado {
                 itemGrid.setMaxHeight(Region.USE_PREF_SIZE);
                 itemGrid.setVgap(10);
 
-                //Add a margin to the item
+                //Añadimos un margen al item
                 GridPane.setMargin(anchorPane, new Insets(10));
             }catch (IOException ex){
                 ex.printStackTrace();
@@ -163,7 +178,10 @@ public class MainController implements Initializable, OnItemSeleccionado {
         }
     }
 
-
+    /**
+     * Listener para el detalle de un jugador
+     * @param jugador Jugador seleccionado
+     */
     @Override
     public void onJugadorSeleccionado(Jugador jugador) {
         establecerDatosIndividualesJugador(jugador);
@@ -171,8 +189,7 @@ public class MainController implements Initializable, OnItemSeleccionado {
 
     //OBTENER JUGADORES DE LA API
     private void obtenerJugadores(){
-        apiService = ClientRest.getInstance("192.168.0.107","8090");
-
+        // Obtenemos la instancia de la API con la dirección del servidor y el puerto
         apiService.obtenerTodos().enqueue(new Callback<List<Jugador>>() {
             @Override
             public void onResponse(Call<List<Jugador>> call, Response<List<Jugador>> response) {
@@ -193,7 +210,7 @@ public class MainController implements Initializable, OnItemSeleccionado {
 
     //OBTENER FICHAS DE LA API
     private void obtenerFichas() {
-        apiService = ClientRest.getInstance("192.168.0.107", "8090");
+        // Obtenemos la instancia de la API con la dirección del servidor y el puerto
         apiService.obtenerFichas().enqueue(new Callback<List<Ficha>>() {
             @Override
             public void onResponse(Call<List<Ficha>> call, Response<List<Ficha>> response) {

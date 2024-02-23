@@ -1,15 +1,11 @@
 package com.luismanuel.cardtoonfx.controllers;
 
-import com.luismanuel.cardtoonfx.interfaces.Item;
 import com.luismanuel.cardtoonfx.interfaces.OnItemSeleccionado;
 import com.luismanuel.cardtoonfx.modelos.Jugador;
 import javafx.fxml.FXML;
-import javafx.scene.SnapshotParameters;
-import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.image.WritableImage;
-import javafx.scene.shape.Rectangle;
+
 
 import java.io.InputStream;
 

@@ -1,7 +1,6 @@
 module com.luismanuel.cardtoonfx {
     requires javafx.controls;
     requires javafx.fxml;
-    requires com.jfoenix;
     requires retrofit2;
     requires retrofit2.converter.gson;
     requires java.sql;
@@ -9,6 +8,7 @@ module com.luismanuel.cardtoonfx {
     requires com.fasterxml.jackson.core;
     requires com.fasterxml.jackson.databind;
     requires okhttp3;
+    requires com.jfoenix;
 
     exports com.luismanuel.cardtoonfx;
     exports com.luismanuel.cardtoonfx.modelos;

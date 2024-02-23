@@ -1,12 +1,15 @@
 package com.luismanuel.cardtoonfx.modelos;
 
 public class Usuario {
+
+    //Atributos
     private Long id;
     private String nombre;
     private String email;
     private String password;
     private boolean admin;
 
+    //Constructores
     public Usuario(String nombre, String email, String password, boolean admin) {
         this.nombre = nombre;
         this.email = email;
@@ -14,6 +17,7 @@ public class Usuario {
         this.admin = admin;
     }
 
+    //Getters
     public Long getId() {
         return id;
     }

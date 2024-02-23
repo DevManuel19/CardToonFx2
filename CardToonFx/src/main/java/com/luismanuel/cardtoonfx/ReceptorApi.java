@@ -8,6 +8,8 @@ import java.util.ArrayList;
 
 public class ReceptorApi {
 
+    //ESTA CLASE SIMULA EL RECEPTOR DE DATOS DE RETROFIT 2 CON DATOS ESTATICOS, PERO NO ES USADA YA QUE LA API FUNCIONA
+
     public static ArrayList<Jugador> obtnerJugadores(){
         ArrayList<Jugador> jugadores = new ArrayList<>();
         //Rellenariamos el array llamando a retrofit 2
